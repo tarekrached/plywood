@@ -225,6 +225,99 @@ describe("Postgres Functional", function() {
         .done();
     });
 
+    it("works string range", (testComplete) => {
+      var ex = $('wiki')
+        .filter($('cityName').greaterThan('eagleton'))
+        .split('$cityName', 'CityName')
+        .sort('$CityName', 'descending')
+        .limit(10);
+
+      basicExecutor(ex)
+        .then((result) => {
+          expect(result.toJS()).to.deep.equal([
+            {
+              "CityName": "Indre Arna"
+            },
+            {
+              "CityName": "Indore"
+            },
+            {
+              "CityName": "Indio"
+            },
+            {
+              "CityName": "Indian Trail"
+            },
+            {
+              "CityName": "Indianapolis"
+            },
+            {
+              "CityName": "Independence"
+            },
+            {
+              "CityName": "Inazawa"
+            },
+            {
+              "CityName": "Impruneta"
+            },
+            {
+              "CityName": "Imola"
+            },
+            {
+              "CityName": "Ilminster"
+            }
+          ]);
+          testComplete();
+        })
+        .done();
+    });
+
+
+    it("works string range greater than m", (testComplete) => {
+      var ex = $('wiki')
+        .filter($('cityName').greaterThan('i'))
+        .split('$cityName', 'CityName')
+        .sort('$CityName', 'descending')
+        .limit(10);
+
+      basicExecutor(ex)
+        .then((result) => {
+          expect(result.toJS()).to.deep.equal([
+            {
+              "CityName": "Indre Arna"
+            },
+            {
+              "CityName": "Indore"
+            },
+            {
+              "CityName": "Indio"
+            },
+            {
+              "CityName": "Indian Trail"
+            },
+            {
+              "CityName": "Indianapolis"
+            },
+            {
+              "CityName": "Independence"
+            },
+            {
+              "CityName": "Inazawa"
+            },
+            {
+              "CityName": "Impruneta"
+            },
+            {
+              "CityName": "Imola"
+            },
+            {
+              "CityName": "Ilminster"
+            }
+          ]);
+          testComplete();
+        })
+        .done();
+    });
+
   });
 
   describe("introspection", () => {

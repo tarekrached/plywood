@@ -7,7 +7,7 @@ module Plywood {
     constructor(parameters: ActionValue) {
       super(parameters, dummyObject);
       this._ensureAction("lessThanOrEqual");
-      this._checkExpressionTypes('NUMBER', 'TIME');
+      this._checkExpressionTypes('NUMBER', 'TIME', 'STRING');
     }
 
     public getOutputType(inputType: PlyType): PlyType {
@@ -21,6 +21,10 @@ module Plywood {
       return {
         type: 'BOOLEAN'
       };
+    }
+
+    protected shouldUpgrade(): boolean {
+      return true;
     }
 
     protected _getFnHelper(inputFn: ComputeFn, expressionFn: ComputeFn): ComputeFn {
