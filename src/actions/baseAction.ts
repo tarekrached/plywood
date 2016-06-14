@@ -458,7 +458,7 @@ module Plywood {
       var expression = this.expression;
       if (!expression) return this;
       var subExpression = expression._substituteHelper(substitutionFn, thisArg, indexer, depth, nestDiff + Number(this.isNester()));
-      if (expression === subExpression) return this;
+      if (expression.equals(subExpression)) return this;
       var value = this.valueOf();
       value.simple = false;
       value.expression = subExpression;
@@ -475,7 +475,7 @@ module Plywood {
 
     public changeExpression(newExpression: Expression): Action {
       var expression = this.expression;
-      if (!expression || expression === newExpression) return this;
+      if (!expression || expression.equals(newExpression)) return this;
       var value = this.valueOf();
       value.expression = newExpression;
       return Action.fromValue(value);
@@ -497,7 +497,7 @@ module Plywood {
       return Infinity;
     }
 
-    public upgradeStringToTime() {
+    public upgradeStringToTime(): Action {
       if (!this.shouldUpgradeStringToTime()) return this;
       var { expression } = this;
       return this.changeExpression(expression.bumpStringLiteralToTimeIfCan());
